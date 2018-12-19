@@ -3,6 +3,11 @@
   hosts: web-server
   vars_files:
     - ["vars/web.yml"]
+  roles:
+    - common
+    - nodejs
+    - letsencrypt
+    - nginx
   tasks:
     - include: deploy-sources.yml
 
