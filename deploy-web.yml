@@ -1,0 +1,20 @@
+---
+- name: Deploy Web
+  hosts: web-server
+  vars_files:
+    - ["vars/web.yml"]
+  tasks:
+    - include: deploy-sources.yml
+
+    - name: Start backend
+      sudo: yes
+      args:
+        chdir: "{{ deploy_app_dir }}"
+      shell: "forever start -c \"node --max_old_space_size=740\" --append --uid webapp ./bin/wwww"
+
+    - name: Delete cache
+      file: path={{ nginx_cache_dir }} state=absent
+
+    - name: Restart nginx
+      sudo: yes
+      service: name=nginx state=restarted

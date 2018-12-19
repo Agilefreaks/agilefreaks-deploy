@@ -1,0 +1,13 @@
+repo_url: git@github.com:Agilefreaks/agilefreaks.git
+repo_version: node-version
+deploy_repo_version: deployed-prod
+app_name: website
+deploy_dir: "~/{{ app_name }}"
+deploy_app_dir: "~/{{ app_name }}/{{ app_name }}-app"
+server_name: agilefreaks.com
+nginx_servers: ["localhost:8080"]
+nginx_cache_dir: "/etc/nginx_cache"
+
+letsencrypt_root: /var/www/html/letsencrypt
+dpharm_path: /etc/nginx/ssl/dhparam.pem
+contact_email: office@agilefreaks.com

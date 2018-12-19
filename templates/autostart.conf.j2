@@ -1,0 +1,8 @@
+task
+
+start on startup
+
+script
+    chdir {{ deploy_app_dir }}
+    {{ command }}
+end script

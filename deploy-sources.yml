@@ -1,0 +1,43 @@
+---
+  - name: Clone project locally
+    local_action: command bash -c "test -e project || git clone {{ repo_url }} project"
+
+  - name: Fetch latest changes
+    local_action: command chdir=project git fetch origin {{ repo_version }}
+
+  - name: Checkout latest changes
+    local_action: command chdir=project git checkout origin/{{ repo_version }}
+
+  - name: Create deploy branch
+    local_action: command chdir=project git checkout -B {{ deploy_repo_version }}
+
+  - name: Install project dependencies
+    local_action: command chdir=project yarn install
+
+  - name: Copy .env to project
+    local_action: command cp private/.env project/.env
+
+  - name: Create project archive
+    local_action: command chdir=project tar -zvcf /tmp/source.tgz .
+
+  - name: Copy project archive to server
+    copy: src=/tmp/source.tgz dest=/tmp/ force=true
+
+  - name: Stop all forever processes
+    sudo: yes
+    shell: forever stopall
+
+  - name: Remove app dir
+    file: path={{ deploy_app_dir }} state=absent
+
+  - name: Ensure app dir
+    file: path={{ deploy_app_dir }} state=directory
+
+  - name: Unarchive project
+    unarchive: copy=no src=/tmp/source.tgz dest={{ deploy_app_dir }}
+
+  - name: Clean forever logs
+    shell: forever cleanlogs
+
+  - name: Update git snapshot
+    local_action: command chdir=project git push origin {{ deploy_repo_version }} -f
