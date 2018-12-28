@@ -7,8 +7,8 @@
   roles:
     - common
     - nodejs
-    - letsencrypt
     - nginx
+    - letsencrypt
   tasks:
     - include: deploy-sources.yml
 

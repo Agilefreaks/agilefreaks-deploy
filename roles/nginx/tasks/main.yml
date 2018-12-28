@@ -39,9 +39,9 @@
     sudo: yes
     file: dest=/etc/nginx/sites-enabled/default state=absent
 
-  - name: Copy nginx virtual host file
+  - name: Copy nginx default virtual host file
     sudo: yes
-    template: src="{{ inventory_dir }}/templates/nginx.j2"
+    template: src="{{ inventory_dir }}/templates/nginx.default.j2"
               dest="/etc/nginx/sites-available/{{app_name}}"
               owner=root
               group=root

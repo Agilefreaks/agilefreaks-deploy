@@ -1,0 +1,25 @@
+upstream main_nodes {
+  {% for server in nginx_servers  %}
+  server {{ server }};
+  {% endfor %}
+}
+
+server {
+  listen 80;
+  server_name {{server_name}};
+
+  location ~ /.well-known {
+    allow all;
+    root {{ letsencrypt_root }};
+  }
+}
+
+server {
+  listen 80;
+  server_name www.{{server_name}};
+
+  location ~ /.well-known {
+    allow all;
+    root {{ letsencrypt_root }};
+  }
+}
