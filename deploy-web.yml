@@ -1,6 +1,7 @@
 ---
 - name: Deploy Web
   hosts: web-server
+  gather_facts: false
   vars_files:
     - ["vars/web.yml"]
   roles:
