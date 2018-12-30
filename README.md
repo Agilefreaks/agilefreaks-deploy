@@ -1,4 +1,4 @@
-Sample node.js app deployment with Ansible
+AgileFreaks website deployment with Ansible
 ===
 
 Install ansible: [Ansible](http://docs.ansible.com/intro_installation.html)
@@ -6,11 +6,14 @@ Install ansible: [Ansible](http://docs.ansible.com/intro_installation.html)
 Deploying app
 --
 ```
-cd deploy
+cd ./private
+gpg -o .env -d .env.gpg
+cd ..
 ansible-playbook deploy.yml -i hosts -u root
 ```
 
 ## Private .env
+cd into `./private`
 
 Encrypt: `gpg -c .env`
 
