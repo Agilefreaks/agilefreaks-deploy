@@ -1,5 +1,5 @@
 repo_url: git@github.com:Agilefreaks/agilefreaks.git
-repo_version: node-version
+repo_version: master
 deploy_repo_version: deployed-prod
 app_name: website
 deploy_dir: "~/{{ app_name }}"
