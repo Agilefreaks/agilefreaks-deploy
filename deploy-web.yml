@@ -16,7 +16,7 @@
       sudo: yes
       args:
         chdir: "{{ deploy_app_dir }}"
-      shell: "forever start -c \"node --max_old_space_size=740\" --append --uid webapp ./bin/wwww"
+      shell: "forever start -c \"node --max_old_space_size=740\" --append --uid webapp server.js"
 
     - name: Delete cache
       file: path={{ nginx_cache_dir }} state=absent
