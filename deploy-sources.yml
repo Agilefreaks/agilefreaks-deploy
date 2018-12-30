@@ -23,10 +23,6 @@
   - name: Copy project archive to server
     copy: src=/tmp/source.tgz dest=/tmp/ force=true
 
-  - name: Stop all forever processes
-    sudo: yes
-    shell: forever stopall
-
   - name: Remove app dir
     file: path={{ deploy_app_dir }} state=absent
 

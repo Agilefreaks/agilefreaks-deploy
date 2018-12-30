@@ -24,4 +24,4 @@
     sudo: yes
     with_items:
       - forever
-      - npm
+      - forever-service

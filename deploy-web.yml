@@ -12,11 +12,22 @@
   tasks:
     - include: deploy-sources.yml
 
-    - name: Start backend
+    - name: Delete existing backend service
+      sudo: yes
+      ignore_errors: yes
+      args:
+        chdir: "{{ deploy_app_dir }}"
+      shell: forever-service delete {{ app_name }}
+
+    - name: Register backend service
       sudo: yes
       args:
         chdir: "{{ deploy_app_dir }}"
-      shell: "forever start -c \"node --max_old_space_size=740\" --append --uid webapp server.js"
+      shell: forever-service install {{ app_name }} --script server.js
+
+    - name: Start backend service
+      sudo: yes
+      shell: service {{ app_name }} start
 
     - name: Delete cache
       file: path={{ nginx_cache_dir }} state=absent
