@@ -12,6 +12,6 @@ ansible-playbook deploy.yml -i hosts -u root
 
 ## Private .env
 
-Encrypt: `gpg -e .env`
+Encrypt: `gpg -c .env`
 
 Decrypt: `gpg -o .env -d .env.gpg`
